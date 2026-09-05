@@ -1,3 +1,5 @@
+def gv
+
 pipeline {
     agent any
     parameters{
@@ -5,20 +7,20 @@ pipeline {
         booleanParam(name:'executeTests', defaultValue: true, description:'')
     }
 
-    /*tools{
-        maven 'Maven'
-    }
-    environment {
-        NEW_VERSION = '1.3.0'
-    //    SERVER_CREDENTIALS = credentials ('server-credentials')
-    }
-    */
-
     stages {
+        stage("init") {
+            steps {
+              script{
+                gv = load "script.groovy"
+              }
+            }
+        }
+
         stage("build") {
             steps {
-              echo 'building the application..'
-              //echo "building the ${NEW_VERSION}"
+              script{
+                gv.buildapp = load "script.groovy"
+              }
             }
         }
 
@@ -29,20 +31,13 @@ pipeline {
                 }
             }
             steps {
-              echo 'testing the application..'
+                gv.testApp()
             }
         }
 
         stage("deploy") {
             steps {
-              echo 'deploying the application..'
-              echo "deploying version ${params.VERSION}"
-
-              /*withCredentials ([
-                usernamePassword('server-credentials', usernameVariable: USER, passwordVariable: PWD)
-              ])
-              */
-
+                gv.deployApp()
             }
         }
     }
