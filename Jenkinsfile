@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages{
         stage("test"){
-            stepts{
+            steps{
                 script{
                     echo "testing the application..."
                     echo "Executing pipeline for branch $BRANCH_NAME"
