@@ -1,12 +1,13 @@
-#!/usr/bin/env groovy
-@library('jenkins-shared-library')
+#!/user/bin/env groovy
+
+@Library('jenkins-shared-library')_
 def gv
 
 
 pipeline {
     agent any
     tools {
-        maven 'Maven'
+        maven 'maven-3.9'
     }
     stages{
         stage("init"){
@@ -34,7 +35,7 @@ pipeline {
         stage("deploy") {
             steps {
                 script {
-
+                     echo "deploying the application..."
                 }
             }
         }
