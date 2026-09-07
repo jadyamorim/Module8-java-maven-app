@@ -25,10 +25,12 @@ pipeline {
             }
         }
 
-        stage("build image") {
+        stage("build and push image") {
             steps {
                 script {
                     buildImage 'jadyamorim/jadydevops:jma-3.0'
+                    dockerLogin()
+                    dockerPush 'jadyamorim/jadydevops:jma-3.0'
                 }
             }
         }
